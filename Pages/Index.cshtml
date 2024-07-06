@@ -1,10 +1,83 @@
 ﻿@page
 @model IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Scripts {
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "proccessing": true,
+                "serverSide": true,
+                "ajax": {
+                    url: "/index?handler=view",
+                    type: 'POST',
+                    headers: { 'RequestVerificationToken': $('@Html.AntiForgeryToken()').val() }
+                },
+                "columnDefs": [
+                    {
+                        "targets": -1,
+                        "data": null,
+                        "render": function (data, type, row, meta) {
+                            return '<a href="/Index/edit?id=' + row.id + '">Edit</a> | <a href="/Index/details?id=' + row.id + '">Details</a> | <a href="/Index/delete?id=' + row.id + '">Delete</a>';
+                        },
+                        "sortable": false
+                    },
+                    { "name": "Id", "data": "id", "targets": 0, "visible": false },
+                    { "name": "color", "data": "color", "targets": 1 },
+                    { "name": "value", "data": "value", "targets": 2 }
+                   
+                ],
+                "order": [[0, "desc"]]
+            });
+        });
+    </script>
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">Json File Upload </div>
+    <div class="panel-body">
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" asp-for="UploadJsonFile" />
+            <input type="submit" />
+
+            <br />
+            <span style="color:green">@Html.Raw(Model.Message)</span>
+        </form>
+    </div>
 </div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">View Json Values</div>
+    <div class="panel-body">
+        <table id="myTable" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model._jsonItems[0].id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model._jsonItems[0].color)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model._jsonItems[0].value)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+

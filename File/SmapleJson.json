@@ -1,0 +1,37 @@
+{
+	{
+		"id": "1001",
+		"color": "red",
+		"value": "#f00"
+	},
+	{
+		"id": "1002",
+		"color": "green",
+		"value": "#0f0"
+	},
+	{
+		"id": "1003",
+		"color": "blue",
+		"value": "#00f"
+	},
+	{
+		"id": "1004",
+		"color": "cyan",
+		"value": "#0ff"
+	},
+	{
+		"id": "1005",
+		"color": "magenta",
+		"value": "#f0f"
+	},
+	{
+		"id": "1006",
+		"color": "yellow",
+		"value": "#ff0"
+	},
+	{
+		"id": "1007",
+		"color": "black",
+		"value": "#000"
+	}
+}
