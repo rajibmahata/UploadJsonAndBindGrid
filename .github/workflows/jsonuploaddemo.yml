@@ -5,13 +5,13 @@ on:
     - Task-Demo
 env:
   AZURE_WEBAPP_NAME: jsonuploaddemo
-  AZURE_WEBAPP_PACKAGE_PATH: ./published
+  AZURE_WEBAPP_PACKAGE_PATH: .\published
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: .
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET SDK
@@ -32,7 +32,7 @@ jobs:
         name: webapp
         path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     steps:
     - name: Download artifact from build job
@@ -44,5 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.jsonuploaddemo_F5CB }}
+        publish-profile: ${{ secrets.jsonuploaddemo_EE2C }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
